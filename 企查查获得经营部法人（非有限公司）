@@ -1,0 +1,49 @@
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import lxml
+import time
+import datetime
+import csv
+import random #randint()函数。
+#path需要改成Chromedriver所在的位置
+path = r'D:\software\anacoden\Scripts\chromedriver.exe' 
+#打开浏览器
+chrome_options = Options()
+#chrome_options.add_argument('--headless')
+#chrome_options.add_argument('--disable-gpu')
+# 创建浏览器对象（路径名称，option选项）
+randomInt = random.randint(4,8)
+driver = webdriver.Chrome(executable_path=path, options=chrome_options)
+#############begin######################################
+driver.get('https://www.qichacha.com/')
+def input_name(name):
+    finds_enter_box = driver.find_elements_by_xpath('//*[@id="searchkey"]')
+    finds_enter_bottom = driver.find_element_by_class_name('input-group-btn')
+    time.sleep(3)
+    for box in finds_enter_box:
+        box.send_keys(name)
+    finds_enter_bottom.click()
+    try:finds_names_box = driver.find_elements_by_xpath('//*[@id="search-result"]/tr/td[3]/p[1]/a')
+    except:print(name ,"not find")
+    else:
+        for finds_name_box in finds_names_box:
+            title = finds_name_box.text
+            #for titles in raw_titles:
+                #title = titles.text
+                #if len(title)<1:continue
+                #if len(title)>3:continue
+            time.sleep(randomInt)
+            driver.back()
+            return title
+        driver.back()
+url_lis = open(r'')
+for line in url_lis:
+    line = line.rstrip()
+   # print(line)
+    a = input_name(line)
+    print(line,':',a)   
+        
