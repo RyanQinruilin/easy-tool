@@ -1,0 +1,42 @@
+import os
+import re
+import sys
+filename = r""
+fileList = os.listdir(filename
+print("修改前："+str(fileList))
+a = int(len(fileList)/2)
+for i in fileList :
+    print(i)
+currentpath = os.getcwd()
+os.chdir(filename)
+####不需要反转￥####
+i = 0
+for fileName in fileList:
+    pat="100.+.pdf"
+    pattern = re.findall(pat,fileName)
+    if len(pattern)<1:continue
+    #print(pattern)
+    i = i+1
+    num = a-i+1
+    if len(str(num))<2:
+        number = '0'+str(a-i+1)
+        os.rename(fileName,('000'+number+r'-1.pdf'))
+    else:
+        os.rename(fileName,('000'+str(num)+r'-1.pdf'))
+####需要反转￥####
+i = 0
+for fileName in fileList:
+    pat="组合.+.pdf"
+    pattern = re.findall(pat,fileName)
+    if len(pattern)<1:continue
+    #print(pattern)
+    i = i+1
+    num = a-i+1
+    if len(str(num))<2:
+        number = '0'+str(a-i+1)
+        os.rename(fileName,('000'+number+r'-1.pdf'))
+    else:
+        os.rename(fileName,('000'+str(num)+r'-1.pdf'))
+    os.chdir(currentpath)
+    sys.stdin.flush()
+print("修改后："+str(os.listdir(filename)))
